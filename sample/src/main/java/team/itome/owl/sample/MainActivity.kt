@@ -1,11 +1,16 @@
 package team.itome.owl.sample
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 
 class MainActivity : AppCompatActivity() {
+
+  private val mainViewModel: MainViewModel by lazy {
+    ViewModelProviders.of(this).get(MainViewModel::class.java)
+  }
 
   private val textCount: TextView by lazy { findViewById<TextView>(R.id.text_count) }
   private val buttonIncrement: Button by lazy { findViewById<Button>(R.id.button_increment) }
