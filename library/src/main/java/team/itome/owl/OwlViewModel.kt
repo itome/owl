@@ -15,15 +15,15 @@ abstract class OwlViewModel<I : Intent, A : Action, S : State>(initialState: S) 
 
   val currentState: S get() = _state.value!!
 
-  protected open val processor: Processor<A>? = null
+  protected open val processor: OwlProcessor<A> = NothingProcessor()
 
   @MainThread
   fun dispatch(intent: I) {
     val state = _state.value!!
     val action = intentToAction(intent, state)
     postState(action)
-    processor?.setPostActionCallback(::postState)
-    processor?.processAction(action)
+    processor.setPostActionCallback(::postState)
+    processor.processAction(action)
   }
 
   private val _state: MutableLiveData<S> = MutableLiveData()
@@ -38,6 +38,10 @@ abstract class OwlViewModel<I : Intent, A : Action, S : State>(initialState: S) 
   }
 
   override fun onCleared() {
-    processor?.onCleared()
+    processor.onCleared()
+  }
+
+  class NothingProcessor<A : Action> : OwlProcessor<A>() {
+    override fun processAction(action: A) {}
   }
 }

@@ -4,7 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
 
-abstract class Processor<A : Action> : CoroutineScope {
+abstract class OwlProcessor<A : Action> : CoroutineScope {
 
   protected fun postAction(action: A) {
     postActionCallback?.invoke(action)

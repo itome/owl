@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -41,6 +42,9 @@ class MainActivity : AppCompatActivity() {
 
     mainViewModel.state.observe(this, Observer { state ->
       textCount.text = "count: ${state.count}"
+      state.error?.consume {
+        Toast.makeText(this, "Count error!", Toast.LENGTH_SHORT).show()
+      }
     })
   }
 }
