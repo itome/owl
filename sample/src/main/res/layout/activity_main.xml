@@ -37,10 +37,34 @@
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
     android:text="DECREMENT"
-    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/button_delayed_increment"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/button_increment"
+    tools:ignore="HardcodedText" />
+
+  <Button
+    android:id="@+id/button_delayed_increment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:text="DELAYED INCREMENT"
+    app:layout_constraintBottom_toTopOf="@id/button_delayed_decrement"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/button_decrement"
+    tools:ignore="HardcodedText" />
+
+  <Button
+    android:id="@+id/button_delayed_decrement"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:text="DELAYED DECREMENT"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/button_delayed_increment"
     tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

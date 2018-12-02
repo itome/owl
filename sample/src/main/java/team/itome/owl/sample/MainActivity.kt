@@ -7,8 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import team.itome.owl.sample.MainIntent.DecrementIntent
-import team.itome.owl.sample.MainIntent.IncrementIntent
+import team.itome.owl.sample.MainIntent.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +18,8 @@ class MainActivity : AppCompatActivity() {
   private val textCount: TextView by lazy { findViewById<TextView>(R.id.text_count) }
   private val buttonIncrement: Button by lazy { findViewById<Button>(R.id.button_increment) }
   private val buttonDecrement: Button by lazy { findViewById<Button>(R.id.button_decrement) }
+  private val buttonDelayedIncrement: Button by lazy { findViewById<Button>(R.id.button_delayed_increment) }
+  private val buttonDelayedDecrement: Button by lazy { findViewById<Button>(R.id.button_delayed_decrement) }
 
   @SuppressLint("SetTextI18n")
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +31,12 @@ class MainActivity : AppCompatActivity() {
     }
     buttonDecrement.setOnClickListener {
       mainViewModel.dispatch(DecrementIntent)
+    }
+    buttonDelayedIncrement.setOnClickListener {
+      mainViewModel.dispatch(DelayedIncrementIntent)
+    }
+    buttonDelayedDecrement.setOnClickListener {
+      mainViewModel.dispatch(DelayedDecrementIntent)
     }
 
     mainViewModel.state.observe(this, Observer { state ->

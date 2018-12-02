@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-abstract class OwlViewModel<I : Intent, A : Action, S : State>(private val initialState: S) : ViewModel() {
+abstract class OwlViewModel<I : Intent, A : Action, S : State>(initialState: S) : ViewModel() {
 
   abstract fun intentToAction(intent: I, state: S): A
 
@@ -15,11 +15,15 @@ abstract class OwlViewModel<I : Intent, A : Action, S : State>(private val initi
 
   val currentState: S get() = _state.value!!
 
+  protected open val processor: Processor<A>? = null
+
   @MainThread
   fun dispatch(intent: I) {
     val state = _state.value!!
     val action = intentToAction(intent, state)
-    processAction(action)
+    postState(action)
+    processor?.setPostActionCallback(::postState)
+    processor?.processAction(action)
   }
 
   private val _state: MutableLiveData<S> = MutableLiveData()
@@ -28,9 +32,12 @@ abstract class OwlViewModel<I : Intent, A : Action, S : State>(private val initi
     _state.value = initialState
   }
 
-  private fun processAction(action: A) {
-    val state = _state.value ?: initialState
-    val nextState = reducer(state, action)
-    _state.value = nextState
+  private fun postState(action: A) {
+    val nextState = reducer(_state.value!!, action)
+    _state.postValue(nextState)
+  }
+
+  override fun onCleared() {
+    processor?.onCleared()
   }
 }
