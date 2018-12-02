@@ -1,19 +1,20 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 28
-
+    compileSdkVersion COMPILE_SDK_VERSION
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        archivesBaseName = "$archivesBaseName-$versionName"
     }
 
     buildTypes {
@@ -27,7 +28,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
@@ -39,4 +40,15 @@ dependencies {
 
 repositories {
     mavenCentral()
+}
+
+publish {
+    bintrayUser = project.hasProperty('bintrayUser') ? bintrayUser : ''
+    bintrayKey = project.hasProperty('bintrayKey') ? bintrayKey : ''
+    userOrg = 'itome-team'
+    groupId = 'team.itome'
+    artifactId = 'owl'
+    publishVersion = VERSION_NAME
+    desc = 'Android application architecture, based on MVI'
+    website = 'https://github.com/itome/owl'
 }
