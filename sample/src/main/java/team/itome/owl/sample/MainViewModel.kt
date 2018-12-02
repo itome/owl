@@ -15,6 +15,6 @@ class MainViewModel : OwlViewModel<MainIntent, MainAction, MainState>(MainState(
   }
 
   override fun reducer(state: MainState, action: MainAction): MainState = when (action) {
-    is UpdateCountAction -> action.whenSuccess<Int, MainState> { state.copy(count = it) }
+    is UpdateCountAction -> action.whenSuccess { count: Int -> state.copy(count = count) }
   }
 }

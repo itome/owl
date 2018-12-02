@@ -1,9 +1,9 @@
 package team.itome.owl
 
 @Suppress("UNUSED")
-sealed class Result<T> {
-  data class Success<T>(val value: T) : Result<T>()
-  data class Failure<T>(val error: Throwable) : Result<T>()
+sealed class Result<out T> {
+  data class Success<out T>(val value: T) : Result<T>()
+  data class Failure(val error: Throwable) : Result<Nothing>()
 
   inline operator fun <A> invoke(f: () -> A): Result<A> =
       try {
