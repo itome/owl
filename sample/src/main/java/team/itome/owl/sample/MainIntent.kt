@@ -1,8 +1,8 @@
 package team.itome.owl.sample
 
-import team.itome.owl.Intent
+import team.itome.owl.OwlIntent
 
-sealed class MainIntent : Intent {
+sealed class MainIntent : OwlIntent {
   object IncrementIntent : MainIntent()
   object DecrementIntent : MainIntent()
 

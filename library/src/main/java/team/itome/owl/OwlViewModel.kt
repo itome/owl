@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-abstract class OwlViewModel<I : Intent, A : Action, S : State>(initialState: S) : ViewModel() {
+abstract class OwlViewModel<I : OwlIntent, A : OwlAction, S : OwlState>(initialState: S) : ViewModel() {
 
   abstract fun intentToAction(intent: I, state: S): A
 
@@ -41,7 +41,7 @@ abstract class OwlViewModel<I : Intent, A : Action, S : State>(initialState: S) 
     processor.onCleared()
   }
 
-  class NothingProcessor<A : Action> : OwlProcessor<A>() {
+  class NothingProcessor<A : OwlAction> : OwlProcessor<A>() {
     override fun processAction(action: A) {}
   }
 }
