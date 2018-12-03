@@ -17,7 +17,6 @@ abstract class OwlViewModel<I : OwlIntent, A : OwlAction, S : OwlState>(initialS
 
   protected open val processor: OwlProcessor<A> = NothingProcessor()
 
-  @MainThread
   fun dispatch(intent: I) {
     val state = _state.value!!
     val action = intentToAction(intent, state)
