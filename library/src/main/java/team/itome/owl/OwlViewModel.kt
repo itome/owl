@@ -17,11 +17,12 @@ abstract class OwlViewModel<I : OwlIntent, A : OwlAction, S : OwlState>(initialS
 
   protected open val processor: OwlProcessor<A> = NothingProcessor()
 
+  @MainThread
   fun dispatch(intent: I) {
     val state = _state.value!!
     val action = intentToAction(intent, state)
-    postState(action)
-    processor.setPostActionCallback(::postState)
+    setState(action)
+    processor.setPostActionCallback(::setState)
     processor.processAction(action)
   }
 
@@ -31,9 +32,10 @@ abstract class OwlViewModel<I : OwlIntent, A : OwlAction, S : OwlState>(initialS
     _state.value = initialState
   }
 
-  private fun postState(action: A) {
+  @MainThread
+  private fun setState(action: A) {
     val nextState = reducer(_state.value!!, action)
-    _state.postValue(nextState)
+    _state.value = nextState
   }
 
   override fun onCleared() {
