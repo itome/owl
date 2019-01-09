@@ -86,6 +86,8 @@ class CounterViewModel : OwlViewModel<CounterIntent, CounterAction, CounterState
     initialState = CounterState(),
     processor = CounterProcessor()
 ) {
+  ...
+}
 ```
 Then `OwlViewModel` notify `Processor` when `Action` dispatched. Processor itself is coroutine. So we can launch coroutine to do async programing. After we finish, we can notify `Action` to `OwlViewModel` by calling `Processor#put`.
 
