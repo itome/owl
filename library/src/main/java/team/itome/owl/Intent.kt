@@ -1,3 +1,3 @@
 package team.itome.owl
 
-interface OwlIntent
+interface Intent

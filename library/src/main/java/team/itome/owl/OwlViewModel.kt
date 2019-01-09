@@ -5,44 +5,45 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-abstract class OwlViewModel<I : OwlIntent, A : OwlAction, S : OwlState>(initialState: S) : ViewModel() {
+abstract class OwlViewModel<I : Intent, A : Action, S : State>(
+    initialState: S,
+    private val processor: Processor<A> = NothingProcessor()
+) : ViewModel() {
 
-  abstract fun intentToAction(intent: I, state: S): A
+    abstract fun intentToAction(intent: I, state: S): A
 
-  abstract fun reducer(state: S, action: A): S
+    abstract fun reducer(state: S, action: A): S
 
-  val state: LiveData<S> get() = _state
+    val state: LiveData<S> get() = _state
 
-  val currentState: S get() = _state.value!!
+    val currentState: S get() = _state.value!!
 
-  protected open val processor: OwlProcessor<A> = NothingProcessor()
+    @MainThread
+    fun dispatch(intent: I) {
+        val state = _state.value!!
+        val action = intentToAction(intent, state)
+        setState(action)
+        processor.processAction(action)
+    }
 
-  @MainThread
-  fun dispatch(intent: I) {
-    val state = _state.value!!
-    val action = intentToAction(intent, state)
-    setState(action)
-    processor.setPostActionCallback(::setState)
-    processor.processAction(action)
-  }
+    private val _state: MutableLiveData<S> = MutableLiveData()
 
-  private val _state: MutableLiveData<S> = MutableLiveData()
+    init {
+        processor.setPostActionCallback(::setState)
+        _state.value = initialState
+    }
 
-  init {
-    _state.value = initialState
-  }
+    @MainThread
+    private fun setState(action: A) {
+        val nextState = reducer(_state.value!!, action)
+        _state.value = nextState
+    }
 
-  @MainThread
-  private fun setState(action: A) {
-    val nextState = reducer(_state.value!!, action)
-    _state.value = nextState
-  }
+    override fun onCleared() {
+        processor.onCleared()
+    }
 
-  override fun onCleared() {
-    processor.onCleared()
-  }
-
-  class NothingProcessor<A : OwlAction> : OwlProcessor<A>() {
-    override fun processAction(action: A) {}
-  }
+    class NothingProcessor<A : Action> : Processor<A>() {
+        override fun processAction(action: A) {}
+    }
 }

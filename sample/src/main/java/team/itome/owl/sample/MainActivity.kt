@@ -4,47 +4,43 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import team.itome.owl.sample.MainIntent.*
+import team.itome.owl.sample.CounterIntent.*
 
 class MainActivity : AppCompatActivity() {
 
-  private val mainViewModel: MainViewModel by lazy {
-    ViewModelProviders.of(this).get(MainViewModel::class.java)
-  }
-
-  private val textCount: TextView by lazy { findViewById<TextView>(R.id.text_count) }
-  private val buttonIncrement: Button by lazy { findViewById<Button>(R.id.button_increment) }
-  private val buttonDecrement: Button by lazy { findViewById<Button>(R.id.button_decrement) }
-  private val buttonDelayedIncrement: Button by lazy { findViewById<Button>(R.id.button_delayed_increment) }
-  private val buttonDelayedDecrement: Button by lazy { findViewById<Button>(R.id.button_delayed_decrement) }
-
-  @SuppressLint("SetTextI18n")
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
-
-    buttonIncrement.setOnClickListener {
-      mainViewModel.dispatch(IncrementIntent)
-    }
-    buttonDecrement.setOnClickListener {
-      mainViewModel.dispatch(DecrementIntent)
-    }
-    buttonDelayedIncrement.setOnClickListener {
-      mainViewModel.dispatch(DelayedIncrementIntent)
-    }
-    buttonDelayedDecrement.setOnClickListener {
-      mainViewModel.dispatch(DelayedDecrementIntent)
+    private val counterViewModel: CounterViewModel by lazy {
+        ViewModelProviders.of(this).get(CounterViewModel::class.java)
     }
 
-    mainViewModel.state.observe(this, Observer { state ->
-      textCount.text = "count: ${state.count}"
-      state.error?.consume {
-        Toast.makeText(this, "Count error!", Toast.LENGTH_SHORT).show()
-      }
-    })
-  }
+    private val textCount: TextView by lazy { findViewById<TextView>(R.id.text_count) }
+    private val buttonIncrement: Button by lazy { findViewById<Button>(R.id.button_increment) }
+    private val buttonDecrement: Button by lazy { findViewById<Button>(R.id.button_decrement) }
+    private val buttonDelayedIncrement: Button by lazy { findViewById<Button>(R.id.button_delayed_increment) }
+    private val buttonDelayedDecrement: Button by lazy { findViewById<Button>(R.id.button_delayed_decrement) }
+
+    @SuppressLint("SetTextI18n")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        buttonIncrement.setOnClickListener {
+            counterViewModel.dispatch(IncrementIntent)
+        }
+        buttonDecrement.setOnClickListener {
+            counterViewModel.dispatch(DecrementIntent)
+        }
+        buttonDelayedIncrement.setOnClickListener {
+            counterViewModel.dispatch(DelayedIncrementIntent)
+        }
+        buttonDelayedDecrement.setOnClickListener {
+            counterViewModel.dispatch(DelayedDecrementIntent)
+        }
+
+        counterViewModel.state.observe(this, Observer { state ->
+            textCount.text = "count: ${state.count}"
+        })
+    }
 }

@@ -1,3 +1,3 @@
 package team.itome.owl
 
-interface OwlState
+interface Action
