@@ -1,6 +1,7 @@
+[![Download](https://api.bintray.com/packages/itome-team/maven/owl/images/download.svg) ](https://bintray.com/itome-team/maven/owl/_latestVersion)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 # Owl
- [![Download](https://api.bintray.com/packages/itome-team/maven/owl/images/download.svg) ](https://bintray.com/itome-team/maven/owl/_latestVersion)
- [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 State management system for Android Application, inspired by Redux and MVI.
 
