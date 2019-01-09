@@ -6,7 +6,6 @@
 State management system for Android Application, inspired by Redux and MVI.
 
 ## Documentation
-
 This library provides
 - Redux like state management.
 - Easy coroutine integration.
@@ -106,3 +105,6 @@ class CounterProcessor : Processor<CounterAction>() {
 ```
 
 Because `OwlViewModel` is fully independent from `Processor`, we don't have to consider about async job status in `OwlViewModel`. All `OwlViewModel` have to do is processing `Action` in `reducer` synchronously.
+
+## Framework
+![Framework](https://github.com/itome/owl/blob/master/assets/framework.png?raw=true)
