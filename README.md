@@ -107,5 +107,13 @@ class CounterProcessor : Processor<CounterAction>() {
 
 Because `OwlViewModel` is fully independent from `Processor`, we don't have to consider about async job status in `OwlViewModel`. All `OwlViewModel` have to do is processing `Action` in `reducer` synchronously.
 
+## Installation
+```
+dependencies {
+  implementation "team.itome.owl:${latest_version}"
+}
+```
+
+
 ## Framework
 ![Framework](https://github.com/itome/owl/blob/master/assets/framework.png?raw=true)
