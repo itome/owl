@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
     private val buttonIncrement: Button by lazy { findViewById<Button>(R.id.button_increment) }
     private val buttonDecrement: Button by lazy { findViewById<Button>(R.id.button_decrement) }
 
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
