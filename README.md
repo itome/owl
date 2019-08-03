@@ -2,6 +2,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Owl
+![Logo](https://github.com/itome/owl/blob/master/assets/logo.png?raw=true)
 
 State management system for Android Application, inspired by Redux and MVI.
 
