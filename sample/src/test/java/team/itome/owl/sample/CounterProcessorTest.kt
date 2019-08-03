@@ -1,5 +1,6 @@
 package team.itome.owl.sample
 
+import io.mockk.called
 import io.mockk.spyk
 import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +38,8 @@ class CounterProcessorTest {
     @Test
     fun processAction() {
         processor.processAction(CounterAction.DelayedIncrementAction(1))
+        verify { mockCallback.invoke(CounterAction.UpdateCountAction(1)) wasNot called }
         dispatcher.advanceTimeBy(1000)
-        verify(exactly = 1) { mockCallback.invoke(CounterAction.UpdateCountAction(1)) }
+        verify { mockCallback.invoke(CounterAction.UpdateCountAction(1)) }
     }
 }
