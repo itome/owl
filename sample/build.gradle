@@ -35,7 +35,10 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     testImplementation 'androidx.arch.core:core-testing:2.0.1'
+    testImplementation 'io.mockk:mockk:1.9.3'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1'
 }
