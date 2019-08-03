@@ -37,4 +37,5 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    testImplementation 'androidx.arch.core:core-testing:2.0.1'
 }
