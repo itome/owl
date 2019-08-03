@@ -1,12 +1,11 @@
 package team.itome.owl
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-abstract class Processor<A : Action> : CoroutineScope {
+abstract class Processor<A : Action>(
+    override val coroutineContext: CoroutineContext = Dispatchers.Default
+) : CoroutineScope {
 
     protected fun put(action: A) = launch(Dispatchers.Main) {
         postActionCallback?.invoke(action)
@@ -14,17 +13,13 @@ abstract class Processor<A : Action> : CoroutineScope {
 
     abstract fun processAction(action: A)
 
-    private val rootParent = Job()
-
     private var postActionCallback: ((action: A) -> Unit)? = null
-
-    override val coroutineContext: CoroutineContext get() = rootParent
 
     fun setPostActionCallback(callback: (action: A) -> Unit) {
         this.postActionCallback = callback
     }
 
     fun onCleared() {
-        rootParent.cancel()
+        coroutineContext.cancel()
     }
 }
